@@ -2,19 +2,22 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { userLogin } from '../redux/auth/operations';
 import { loginSchema } from 'schemas/loginSchema';
 
-export const Login = () => {
+const Login = () => {
   const {
     register,
     reset,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(loginSchema) });
+  const dispatch = useDispatch();
   const [showPass, setShowPass] = useState(false);
   const submit = data => {
     console.log('login data ->>>', data);
-
+    dispatch(userLogin(data));
     reset();
   };
   return (
@@ -63,3 +66,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default Login;

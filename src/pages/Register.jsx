@@ -7,7 +7,7 @@ import { FaEye } from 'react-icons/fa';
 import { FaEyeSlash } from 'react-icons/fa';
 import { userRegister } from '../redux/auth/operations';
 
-export const Register = () => {
+const Register = () => {
   const {
     register,
     reset,
@@ -101,3 +101,5 @@ export const Register = () => {
     </div>
   );
 };
+
+export default Register;
