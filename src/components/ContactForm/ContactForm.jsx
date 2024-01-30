@@ -48,27 +48,48 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={s.form} autoComplete="on">
+    <form className="flex gap-4">
       <input
-        className={s.input}
         type="text"
-        name="name"
-        required
-        placeholder="Enter Name"
-        value={name}
-        onChange={handleChange}
+        placeholder="Insert name"
+        class="appearance-none rounded-full nm-inset-gray-200 leading-5 px-8 py-4 flex-grow sm:w-1/3 focus:nm-inset-gray-300 focus:outline-none"
       />
+
       <input
-        className={s.input}
         type="text"
-        name="phone"
-        required
-        placeholder="Enter Phone"
-        value={phone}
-        onChange={handleChange}
+        placeholder="Insert phone"
+        class="appearance-none rounded-full nm-inset-gray-200 leading-5 px-8 py-4 flex-grow sm:w-1/3 focus:nm-inset-gray-300 focus:outline-none"
       />
-      <button className={s.btn}>Add contact</button>
+
+      <button
+        type="submit"
+        className="rounded-full nm-flat-gray-200 hover:nm-flat-gray-200-lg leading-5 px-8 py-4 text-gray-600 font-bold  transition duration-200 ease-in-out transform hover:scale-110"
+      >
+        Add contact
+      </button>
     </form>
+
+    // <form onSubmit={handleSubmit} className={s.form} autoComplete="on">
+    //   <input
+    //     className={s.input}
+    //     type="text"
+    //     name="name"
+    //     required
+    //     placeholder="Enter Name"
+    //     value={name}
+    //     onChange={handleChange}
+    //   />
+    //   <input
+    //     className={s.input}
+    //     type="text"
+    //     name="phone"
+    //     required
+    //     placeholder="Enter Phone"
+    //     value={phone}
+    //     onChange={handleChange}
+    //   />
+    //   <button className={s.btn}>Add contact</button>
+    // </form>
   );
 };
 

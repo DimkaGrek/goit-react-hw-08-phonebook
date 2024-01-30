@@ -13,6 +13,11 @@ import {
 import { fetchContacts } from '../redux/operations';
 import Loader from './Loader/Loader';
 import { toast } from 'react-toastify';
+import { Route, Routes } from 'react-router-dom';
+import { Header } from './Header/Header';
+import { Contacts } from 'pages/Contacts';
+import { Login } from 'pages/Login';
+import { Register } from 'pages/Register';
 
 const App = () => {
   const contacts = useSelector(selectContacts);
@@ -29,23 +34,30 @@ const App = () => {
   }
 
   return (
-    <div className={s.container}>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      {!isError &&
-        (contacts?.length > 0 ? (
-          <>
-            <Filter />
-            {isLoading && <Loader />}
-            <ContactList />
-          </>
-        ) : (
-          <>
-            <Notification message="No contacts" />
-            {isLoading && <Loader />}
-          </>
-        ))}
-    </div>
+    <Routes>
+      <Route path="/" element={<Header />}>
+        <Route index element={<Contacts />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
+    </Routes>
+    // <div className={s.container}>
+    //   <h1>Phonebook</h1>
+    //   <ContactForm />
+    //   {!isError &&
+    //     (contacts?.length > 0 ? (
+    //       <>
+    //         <Filter />
+    //         {isLoading && <Loader />}
+    //         <ContactList />
+    //       </>
+    //     ) : (
+    //       <>
+    //         <Notification message="No contacts" />
+    //         {isLoading && <Loader />}
+    //       </>
+    //     ))}
+    // </div>
   );
 };
 

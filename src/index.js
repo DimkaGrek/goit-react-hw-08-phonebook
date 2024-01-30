@@ -6,10 +6,14 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { BrowserRouter } from 'react-router-dom';
+import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <Provider store={store}>
-    <App />
-    <ToastContainer />
-  </Provider>
+  <BrowserRouter basename="/goit-react-hw-08-phonebook">
+    <Provider store={store}>
+      <App />
+      <ToastContainer />
+    </Provider>
+  </BrowserRouter>
 );

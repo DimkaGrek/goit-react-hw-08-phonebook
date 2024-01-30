@@ -1,6 +1,7 @@
-# React homework 07 Phonebook
+# React homework 08 Phonebook
 
-In this homework I use backend server https://mockapi.io/  
-For connection to server I use axios.  
+In this homework I use backend server
+[Connectios-api](https://connections-api.herokuapp.com/docs/)
+
 For HTTP-requests I use function
 https://redux-toolkit.js.org/api/createAsyncThunk
