@@ -48,7 +48,7 @@ const ContactForm = () => {
   };
 
   return (
-    <form className="flex gap-4">
+    <form className="flex gap-4 container mx-auto">
       <input
         type="text"
         placeholder="Insert name"

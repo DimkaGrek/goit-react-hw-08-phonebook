@@ -18,6 +18,8 @@ import { Header } from './Header/Header';
 import { Contacts } from 'pages/Contacts';
 import { Login } from 'pages/Login';
 import { Register } from 'pages/Register';
+import { PrivateRoute } from '../routes/PrivateRoute.jsx';
+import { PublicRoute } from '../routes/PublicRoute.jsx';
 
 const App = () => {
   const contacts = useSelector(selectContacts);
@@ -25,9 +27,9 @@ const App = () => {
   const isError = useSelector(selectIsError);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchContacts());
+  // }, [dispatch]);
 
   if (isError) {
     toast.error(`Sorry, problem connection to server! ${isError}`);
@@ -36,9 +38,30 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Header />}>
-        <Route index element={<Contacts />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route
+          index
+          element={
+            <PrivateRoute>
+              <Contacts />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          }
+        />
       </Route>
     </Routes>
     // <div className={s.container}>
