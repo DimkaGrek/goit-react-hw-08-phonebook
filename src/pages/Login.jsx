@@ -1,25 +1,38 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+
 import { userLogin } from '../redux/auth/operations';
 import { loginSchema } from 'schemas/loginSchema';
+import { clearError, selectIsError } from '../redux/auth/authSlice';
 
 const Login = () => {
+  const isError = useSelector(selectIsError);
   const {
     register,
-    reset,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(loginSchema) });
+
   const dispatch = useDispatch();
+
   const [showPass, setShowPass] = useState(false);
+
   const submit = data => {
-    console.log('login data ->>>', data);
     dispatch(userLogin(data));
-    reset();
   };
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(isError, {
+        onClose: () => dispatch(clearError()),
+      });
+    }
+  }, [isError, dispatch]);
+
   return (
     <div className="max-w-sm mx-auto">
       <h2 className="text-gray-600 text-xl font-bold mb-4">Login</h2>

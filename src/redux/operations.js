@@ -6,7 +6,6 @@ export const fetchContacts = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const { data } = await api.get('/contacts');
-      console.log('fetch contacts ->>>', data);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -44,9 +43,9 @@ export const editContact = createAsyncThunk(
     try {
       const { data } = await api.patch(`/contacts/${contact.id}`, {
         name: contact.name,
-        number: contact.phone,
+        number: contact.number,
       });
-      console.log(data);
+      return { ...data, id: contact.id };
     } catch (error) {}
   }
 );

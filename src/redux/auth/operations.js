@@ -7,9 +7,13 @@ export const userRegister = createAsyncThunk(
     try {
       const { data } = await api.post('/users/signup', user);
       setToken(data.token);
-      console.log(data);
       return data;
-    } catch (error) {}
+    } catch (error) {
+      if (error.response.data.code === 11000) {
+        return thunkAPI.rejectWithValue('Sorry, this user exist');
+      }
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
 );
 
@@ -19,9 +23,13 @@ export const userLogin = createAsyncThunk(
     try {
       const { data } = await api.post('/users/login', user);
       setToken(data.token);
-      console.log(data);
       return data;
-    } catch (error) {}
+    } catch (error) {
+      if (error.request.status === 400) {
+        return thunkAPI.rejectWithValue('Creditials is not valid');
+      }
+      return thunkAPI.rejectWithValue(error.message);
+    }
   }
 );
 

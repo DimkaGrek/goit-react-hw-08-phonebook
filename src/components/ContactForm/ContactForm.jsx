@@ -20,8 +20,6 @@ const ContactForm = () => {
   });
 
   const submit = data => {
-    console.log('add contact data: =>>>>', data);
-
     if (checkContact(data.name)) {
       return;
     }
@@ -40,8 +38,6 @@ const ContactForm = () => {
     }
     return isExist;
   };
-
-  console.log('contacts in state ->>>>>', contacts);
 
   return (
     <div className="container mx-auto">
