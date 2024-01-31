@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 
 import { selectIsLoggedIn, selectUser } from '../../redux/auth/authSlice';
 import { userLogout } from '../../redux/auth/operations';
@@ -9,7 +9,6 @@ import Loader from 'components/Loader/Loader';
 
 export const Header = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const currPath = useLocation().pathname;
   const user = useSelector(selectUser);
 
   const dispatch = useDispatch();
@@ -40,21 +39,21 @@ export const Header = () => {
                 <>
                   <NavLink
                     to="/login"
-                    className={`w-14 h-10 flex justify-center items-center rounded-full nm-convex-gray-200-xs hover:nm-inset-gray-200-xs hover:font-semibold text-sm ${
-                      currPath === '/login'
-                        ? 'nm-inset-gray-200-xs font-semibold'
-                        : ''
-                    }`}
+                    className={({ isActive }) => {
+                      return isActive
+                        ? 'w-16 h-10 flex justify-center items-center rounded-full text-sm nm-inset-gray-200-xs font-semibold'
+                        : 'w-16 h-10 flex justify-center items-center rounded-full nm-convex-gray-200-xs hover:nm-inset-gray-200-xs hover:font-semibold text-sm';
+                    }}
                   >
                     Login
                   </NavLink>
                   <NavLink
                     to="/register"
-                    className={`w-16 h-10 flex justify-center items-center rounded-full nm-convex-gray-200-xs hover:nm-inset-gray-200-xs hover:font-semibold text-sm ${
-                      currPath === '/register'
-                        ? 'nm-inset-gray-200-xs font-semibold'
-                        : ''
-                    }`}
+                    className={({ isActive }) => {
+                      return isActive
+                        ? 'w-16 h-10 flex justify-center items-center rounded-full text-sm nm-inset-gray-200-xs font-semibold'
+                        : 'w-16 h-10 flex justify-center items-center rounded-full nm-convex-gray-200-xs hover:nm-inset-gray-200-xs hover:font-semibold text-sm';
+                    }}
                   >
                     Register
                   </NavLink>

@@ -8,6 +8,7 @@ import { PublicRoute } from '../routes/PublicRoute.jsx';
 import { userRefresh } from '../redux/auth/operations';
 import { selectIsRefresh } from '../redux/auth/authSlice';
 import Loader from './Loader/Loader';
+import Notification from './Notification/Notification';
 
 const Contacts = lazy(() => import('pages/Contacts'));
 const Login = lazy(() => import('pages/Login'));
@@ -51,6 +52,10 @@ const App = () => {
           }
         />
       </Route>
+      <Route
+        path="*"
+        element={<Notification message="Oops, page not found" />}
+      />
     </Routes>
   );
 };
