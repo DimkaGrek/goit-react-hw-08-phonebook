@@ -1,16 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { userLogin } from '../redux/auth/operations';
 import { loginSchema } from 'schemas/loginSchema';
-import { clearError, selectIsError } from '../redux/auth/authSlice';
+import { clearError } from '../redux/auth/authSlice';
 
 const Login = () => {
-  const isError = useSelector(selectIsError);
   const {
     register,
     handleSubmit,
@@ -22,16 +21,21 @@ const Login = () => {
   const [showPass, setShowPass] = useState(false);
 
   const submit = data => {
-    dispatch(userLogin(data));
+    dispatch(userLogin(data))
+      .unwrap()
+      .then()
+      .catch(error => toast.error(error))
+      .finally(() => dispatch(clearError()));
   };
 
-  useEffect(() => {
-    if (isError) {
-      toast.error(isError, {
-        onClose: () => dispatch(clearError()),
-      });
-    }
-  }, [isError, dispatch]);
+  // ----- show Error, using useEffect --------
+  // useEffect(() => {
+  //   if (isError) {
+  //     toast.error(isError, {
+  //       onClose: () => dispatch(clearError()),
+  //     });
+  //   }
+  // }, [isError, dispatch]);
 
   return (
     <div className="max-w-sm mx-auto">

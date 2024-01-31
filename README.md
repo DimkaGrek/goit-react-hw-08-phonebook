@@ -5,3 +5,5 @@ In this homework I use backend server
 
 For HTTP-requests I use function
 https://redux-toolkit.js.org/api/createAsyncThunk
+
+Design - neopolimorphism.

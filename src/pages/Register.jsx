@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { registerSchema } from 'schemas/registerSchema';
 import { FaEye } from 'react-icons/fa';
 import { FaEyeSlash } from 'react-icons/fa';
 import { userRegister } from '../redux/auth/operations';
-import { clearError, selectIsError } from '../redux/auth/authSlice';
+import { clearError } from '../redux/auth/authSlice';
 import { toast } from 'react-toastify';
 
 const Register = () => {
@@ -17,22 +17,27 @@ const Register = () => {
   } = useForm({
     resolver: yupResolver(registerSchema),
   });
-  const isError = useSelector(selectIsError);
+
   const dispatch = useDispatch();
   const [showPass, setShowPass] = useState(false);
   const [showConfPass, setShowConfPass] = useState(false);
   const submit = data => {
     delete data.confirmPassword;
-    dispatch(userRegister(data));
+    dispatch(userRegister(data))
+      .unwrap()
+      .then()
+      .catch(error => toast.error(error))
+      .finally(() => dispatch(clearError()));
   };
 
-  useEffect(() => {
-    if (isError) {
-      toast.error(isError, {
-        onClose: () => dispatch(clearError()),
-      });
-    }
-  }, [isError, dispatch]);
+  // ----- show Error, using useEffect --------
+  // useEffect(() => {
+  //   if (isError) {
+  //     toast.error(isError, {
+  //       onClose: () => dispatch(clearError()),
+  //     });
+  //   }
+  // }, [isError, dispatch]);
 
   return (
     <div className="max-w-sm mx-auto">
